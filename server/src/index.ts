@@ -34,6 +34,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
 
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
+});
+
 app.listen(7000, () => {
   console.log("Server running on localhost:7000");
 });
