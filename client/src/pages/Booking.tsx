@@ -38,7 +38,7 @@ const Booking = () => {
   );
 
   const { data: hotel } = useQuery(
-    "fetchHotelID",
+    "fetchHotelByID",
     () => apiClient.fetchHotelById(hotelId as string),
     {
       enabled: !!hotelId,
@@ -67,7 +67,9 @@ const Booking = () => {
       {currentUser && paymentIntentData && (
         <Elements
           stripe={stripePromise}
-          options={{ clientSecret: paymentIntentData.clientSecret }}
+          options={{
+            clientSecret: paymentIntentData.clientSecret,
+          }}
         >
           <BookingForm
             currentUser={currentUser}

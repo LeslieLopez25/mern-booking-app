@@ -55,6 +55,16 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find().sort("-lastUpdated");
+    res.json(hotels);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+});
+
 router.get(
   "/:id",
   [param("id").notEmpty().withMessage("Hotel ID is required")],
@@ -91,7 +101,7 @@ router.post(
     const totalCost = hotel.pricePerNight * numberOfNights;
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalCost,
+      amount: totalCost * 100,
       currency: "mxn",
       metadata: {
         hotelId,
@@ -140,27 +150,29 @@ router.post(
           message: `payment intent not succeeded. Status: ${paymentIntent.status}`,
         });
       }
+
+      const newBooking: BookingType = {
+        ...req.body,
+        userId: req.userId,
+      };
+
+      const hotel = await Hotel.findOneAndUpdate(
+        { _id: req.params.hotelId },
+        {
+          $push: { bookings: newBooking },
+        }
+      );
+
+      if (!hotel) {
+        return res.status(400).json({ message: "hotel not found" });
+      }
+
+      await hotel.save();
+      res.status(200).send();
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Something went wrong" });
+      res.status(500).json({ message: "something went wrong" });
     }
-
-    const newBooking: BookingType = {
-      ...req.body,
-      userId: req.userId,
-    };
-
-    const hotel = await Hotel.findOneAndUpdate(
-      { _id: req.params.hotelId },
-      { $push: { bookings: newBooking } }
-    );
-
-    if (!hotel) {
-      return res.status(400).json({ message: "hotel not found" });
-    }
-
-    await hotel.save();
-    res.status(200).send();
   }
 );
 
