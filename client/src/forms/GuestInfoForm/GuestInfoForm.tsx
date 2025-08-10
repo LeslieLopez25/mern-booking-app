@@ -32,8 +32,8 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
     defaultValues: {
       checkIn: search.checkIn,
       checkOut: search.checkOut,
-      adultCount: search.adultCount,
-      childCount: search.childCount,
+      adultCount: search.adultCount ?? 1,
+      childCount: search.childCount ?? 0,
     },
   });
 
