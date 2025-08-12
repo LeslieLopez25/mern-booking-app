@@ -34,9 +34,11 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="-mt-8 p-3 bg-orange-400 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="-mt-8 p-3 bg-orange-400 rounded-lg shadow-md 
+                 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 
+                 items-center gap-4"
     >
-      <div className="flex flex-row items-center flex-1 bg-white p-2">
+      <div className="flex flex-row items-center flex-1 bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
         <MdTravelExplore size={25} className="mr-2" />
         <input
           placeholder="Where are you going?"
@@ -46,7 +48,7 @@ const SearchBar = () => {
         />
       </div>
 
-      <div className="flex bg-white px-2 py-1 gap-2">
+      <div className="flex bg-white px-2 py-1 gap-2 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
         <label className="items-center flex">
           Adults:
           <input
@@ -70,6 +72,7 @@ const SearchBar = () => {
           />
         </label>
       </div>
+
       <div>
         <DatePicker
           selected={checkIn}
@@ -80,10 +83,11 @@ const SearchBar = () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-in Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
+          className="min-w-full bg-white p-2 rounded-lg shadow-sm hover:shadow-md focus:outline-none"
           wrapperClassName="min-w-full"
         />
       </div>
+
       <div>
         <DatePicker
           selected={checkOut}
@@ -94,15 +98,22 @@ const SearchBar = () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-out Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
+          className="min-w-full bg-white p-2 rounded-lg shadow-sm hover:shadow-md focus:outline-none"
           wrapperClassName="min-w-full"
         />
       </div>
-      <div className="flex gap-1">
-        <button className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold text-xl hover:bg-blue-500">
+
+      <div className="flex gap-2 w-full">
+        <button
+          className="flex-1 bg-blue-600 text-white text-xl px-4 py-2 rounded-lg font-semibold 
+               shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-200"
+        >
           Search
         </button>
-        <button className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500">
+        <button
+          className="flex-1 bg-red-600 text-white text-xl px-4 py-2 rounded-lg font-semibold 
+               shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200"
+        >
           Clear
         </button>
       </div>
