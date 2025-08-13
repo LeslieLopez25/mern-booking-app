@@ -133,17 +133,36 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
       <div className="space-y-2">
         <h3 className="text-xl font-semibold"> Payment Details</h3>
-        <CardElement
-          id="payment-element"
-          className="border rounded-md p-2 text-sm"
-        />
+        <div className="bg-blue-900 rounded-xl p-4">
+          <CardElement
+            id="payment-element"
+            options={{
+              style: {
+                base: {
+                  color: "#ffffff",
+                  fontSize: "16px",
+                  fontFamily: "Arial, sans-serif",
+                  "::placeholder": {
+                    color: "#cbd5e1",
+                  },
+                  iconColor: "#ffffff",
+                },
+                invalid: {
+                  color: "#ff4d4d",
+                  iconColor: "#ff4d4d",
+                },
+              },
+            }}
+            className="border rounded-md p-3 text-sm"
+          />
+        </div>
       </div>
 
       <div className="flex justify-end">
         <button
           disabled={isLoading}
           type="submit"
-          className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-md disabled:bg-gray-500"
+          className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-lg shadow hover:bg-blue-500 transition-colors duration-200 disabled:bg-gray-400"
         >
           {isLoading ? "Saving..." : "Confirm Booking"}
         </button>
