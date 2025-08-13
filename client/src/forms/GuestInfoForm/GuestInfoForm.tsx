@@ -137,11 +137,11 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
           )}
         </div>
         {isLoggedIn ? (
-          <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-lg shadow-md hover:bg-blue-500 hover:shadow-lg transition duration-200">
             Book Now
           </button>
         ) : (
-          <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-lg shadow-md hover:bg-blue-500 hover:shadow-lg transition duration-200">
             Sign in to Book
           </button>
         )}
