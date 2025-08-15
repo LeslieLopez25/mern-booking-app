@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
-import LatestDestinationCard from "../components/LatestDestionationCard";
+import LatestDestinationCard from "../components/LatestDestinationCard";
 
 const Home = () => {
   const { data: hotels } = useQuery("fetchQuery", () =>
