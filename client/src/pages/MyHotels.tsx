@@ -20,7 +20,6 @@ const MyHotels = () => {
 
   return (
     <div className="space-y-5">
-      {/* Header & Add Hotel Button */}
       <span className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Link
@@ -32,7 +31,6 @@ const MyHotels = () => {
         </Link>
       </span>
 
-      {/* Hotels List */}
       <div className="grid grid-cols-1 gap-8">
         {hotelData.map((hotel) => (
           <div
@@ -43,7 +41,6 @@ const MyHotels = () => {
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
             <div className="whitespace-pre-line">{hotel.description}</div>
 
-            {/* Hotel Info Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
               <div className="border border-slate-300 rounded-sm p-3 flex items-center">
                 <BsMap className="mr-1" />
@@ -66,7 +63,6 @@ const MyHotels = () => {
               </div>
             </div>
 
-            {/* View Details Button */}
             <span className="flex justify-end">
               <Link
                 to={`/edit-hotel/${hotel._id}`}
