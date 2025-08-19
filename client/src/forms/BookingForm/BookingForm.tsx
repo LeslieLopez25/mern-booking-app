@@ -91,10 +91,13 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-5"
+      className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-4 sm:p-5"
     >
-      <span className="text-3xl font-bold">Confirm Your Details</span>
-      <div className="grid grid-cols-2 gap-6">
+      <span className="text-xl sm:text-2xl md:text-3xl font-bold">
+        Confirm Your Details
+      </span>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <label className="text-gray-700 text-sm font-bold flex-1">
           First Name
           <input
@@ -128,10 +131,9 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       </div>
 
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Your Price Summary</h2>
-
+        <h2 className="text-lg sm:text-xl font-semibold">Your Price Summary</h2>
         <div className="bg-blue-200 p-4 rounded-md">
-          <div className="font-semibold text-lg">
+          <div className="font-semibold text-base sm:text-lg">
             Total Cost: ${paymentIntent.totalCost.toFixed(2)}
           </div>
           <div className="text-xs">Includes taxes and charges</div>
@@ -139,19 +141,17 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-xl font-semibold"> Payment Details</h3>
-        <div className="bg-blue-900 rounded-xl p-4">
+        <h3 className="text-lg sm:text-xl font-semibold">Payment Details</h3>
+        <div className="bg-blue-900 rounded-lg sm:rounded-xl p-3 sm:p-4">
           <CardElement
             id="payment-element"
             options={{
               style: {
                 base: {
                   color: "#ffffff",
-                  fontSize: "16px",
+                  fontSize: "14px",
                   fontFamily: "Arial, sans-serif",
-                  "::placeholder": {
-                    color: "#cbd5e1",
-                  },
+                  "::placeholder": { color: "#cbd5e1" },
                   iconColor: "#ffffff",
                 },
                 invalid: {
@@ -160,7 +160,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
                 },
               },
             }}
-            className="border rounded-md p-3 text-sm"
+            className="border rounded-md p-2 sm:p-3 text-sm sm:text-base md:text-lg"
           />
         </div>
       </div>
@@ -169,7 +169,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
         <button
           disabled={isLoading}
           type="submit"
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-lg shadow hover:bg-blue-500 transition-colors duration-200 disabled:bg-gray-400"
+          className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-lg shadow hover:bg-blue-500 transition-colors duration-200 disabled:bg-gray-400"
         >
           {isLoading ? "Saving..." : "Confirm Booking"}
         </button>
