@@ -72,17 +72,21 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form className="flex flex-col gap-10" onSubmit={onSubmit}>
+      <form
+        className="flex flex-col gap-6 sm:gap-10 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8"
+        onSubmit={onSubmit}
+      >
         <DetailsSection />
         <TypeSection />
         <FacilitiesSection />
         <GuestsSection />
         <ImagesSection />
-        <span className="flex justify-end">
+
+        <span className="flex">
           <button
             disabled={isLoading}
             type="submit"
-            className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-xl shadow hover:bg-blue-500 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-lg sm:text-xl shadow hover:bg-blue-500 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isLoading ? "Saving..." : "Save"}
           </button>
