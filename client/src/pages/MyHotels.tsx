@@ -20,16 +20,18 @@ const MyHotels = () => {
 
   return (
     <div className="space-y-5">
-      <span className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">My Hotels</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h1 className="text-3xl font-bold text-center sm:text-left w-full sm:w-auto">
+          My Hotels
+        </h1>
         <Link
           to="/add-hotel"
-          className="flex items-center gap-2 bg-green-600 text-white text-lg font-bold px-6 py-3 rounded-xl shadow hover:bg-green-500 transition-colors duration-200"
+          className="flex items-center justify-center gap-2 bg-green-600 text-white text-lg font-bold px-6 py-3 rounded-xl shadow hover:bg-green-500 transition-colors duration-200 w-full sm:w-auto"
         >
           <BsPlusCircle className="text-xl" />
           Add Hotel
         </Link>
-      </span>
+      </div>
 
       <div className="grid grid-cols-1 gap-8">
         {hotelData.map((hotel) => (
