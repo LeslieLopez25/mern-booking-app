@@ -246,3 +246,19 @@ export const fetchMyBookings = async (): Promise<HotelType[]> => {
 
   return response.json();
 };
+
+export const cancelBooking = async (hotelId: string, bookingId: string) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/my-bookings/${hotelId}/${bookingId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to cancel booking");
+  }
+  return response.json();
+};
