@@ -14,7 +14,6 @@ const Header = () => {
           <Link to="/">MernHolidays.com</Link>
         </span>
 
-        {/* Hamburger Button (Mobile) */}
         <button
           className="md:hidden text-white focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
@@ -44,7 +43,6 @@ const Header = () => {
           </svg>
         </button>
 
-        {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-3">
           {isLoggedIn ? (
             <>
@@ -53,6 +51,13 @@ const Header = () => {
                 to="/my-bookings"
               >
                 My Bookings
+              </Link>
+              <Link
+                onClick={() => setIsOpen(false)}
+                className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:bg-blue-500 transition-colors duration-200"
+                to="/history"
+              >
+                History
               </Link>
               <Link
                 className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:bg-blue-500 transition-colors duration-200"
@@ -73,7 +78,6 @@ const Header = () => {
         </nav>
       </div>
 
-      {/* Mobile Menu with Animation */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
@@ -88,6 +92,13 @@ const Header = () => {
                 to="/my-bookings"
               >
                 My Bookings
+              </Link>
+              <Link
+                onClick={() => setIsOpen(false)}
+                className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:bg-blue-500 transition-colors duration-200"
+                to="/history"
+              >
+                History
               </Link>
               <Link
                 onClick={() => setIsOpen(false)}

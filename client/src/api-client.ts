@@ -262,3 +262,15 @@ export const cancelBooking = async (hotelId: string, bookingId: string) => {
   }
   return response.json();
 };
+
+export const fetchPastBookings = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-bookings/history`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to fetch past bookings");
+  }
+
+  return response.json();
+};

@@ -34,16 +34,41 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+router.get("/history", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const today = new Date();
+
+    const hotels = await Hotel.find({
+      bookings: { $elemMatch: { userId: req.userId } },
+    });
+
+    const results = hotels
+      .map((hotel) => {
+        const pastBookings = hotel.bookings.filter(
+          (booking) =>
+            booking.userId === req.userId && new Date(booking.checkOut) < today
+        );
+
+        return {
+          ...hotel.toObject(),
+          bookings: pastBookings,
+        };
+      })
+      .filter((hotel) => hotel.bookings.length > 0);
+
+    res.status(200).send(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Unable to fetch past bookings" });
+  }
+});
+
 router.delete(
   "/:hotelId/:bookingId",
   verifyToken,
   async (req: Request, res: Response) => {
     try {
       const { hotelId, bookingId } = req.params;
-
-      console.log("HotelId:", hotelId);
-      console.log("BookingId:", bookingId);
-      console.log("UserId:", req.userId);
 
       const hotel = await Hotel.findOneAndUpdate(
         {

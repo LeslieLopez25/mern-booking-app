@@ -16,6 +16,7 @@ import Detail from "./pages/Detail";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
 import Home from "./pages/Home";
+import History from "./pages/BookingHistory";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -94,6 +95,14 @@ const App = () => {
               element={
                 <Layout>
                   <MyBookings />
+                </Layout>
+              }
+            />
+            <Route
+              path="/history"
+              element={
+                <Layout>
+                  <History />
                 </Layout>
               }
             />
