@@ -32,7 +32,7 @@ const useCountdown = (targetDate: Date) => {
   return timeLeft;
 };
 
-const BookingCard = ({ booking, hotel, onCancel }: any) => {
+const BookingCard = ({ booking, onCancel }: any) => {
   const today = new Date();
   const checkOut = new Date(booking.checkOut);
   const isCompleted = checkOut < today;
@@ -131,7 +131,6 @@ const MyBookings = () => {
               <BookingCard
                 key={booking._id}
                 booking={booking}
-                hotel={hotel}
                 onCancel={(bookingId: string) =>
                   cancelBookingMutation.mutate({
                     hotelId: hotel._id,
