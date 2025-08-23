@@ -45,7 +45,7 @@ test("should allow user to add a hotel", async ({ page }) => {
   ]);
 
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.getByText("Hotel Saved!")).toBeVisible();
+  await expect(page.getByText("Hotel Added!")).toBeVisible();
 });
 
 test("should display hotels", async ({ page }) => {
@@ -74,7 +74,7 @@ test("should edit hotel", async ({ page }) => {
   await expect(page.locator('[name="name"]')).toHaveValue("Happy Resort");
   await page.locator('[name="name"]').fill("Happy Resort UPDATED");
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.getByText("Hotel Saved!")).toBeVisible();
+  await expect(page.getByText("Hotel Updated!")).toBeVisible();
 
   await page.reload();
 

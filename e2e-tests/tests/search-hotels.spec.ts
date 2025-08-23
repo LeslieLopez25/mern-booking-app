@@ -54,7 +54,7 @@ test("should book hotel", async ({ page }) => {
   await page.getByText("Happy Resort").click();
   await page.getByRole("button", { name: "Book now" }).click();
 
-  await expect(page.getByText("Total Cost: $120.00")).toBeVisible();
+  await expect(page.getByText("Total Cost: $180.00")).toBeVisible();
 
   const stripeFrame = page.frameLocator("iframe").first();
   await stripeFrame
@@ -68,5 +68,13 @@ test("should book hotel", async ({ page }) => {
   await expect(page.getByText("Booking Saved!")).toBeVisible();
 
   await page.getByRole("link", { name: "My Bookings" }).click();
+  await expect(page.getByText("Happy Resort")).toBeVisible();
+});
+
+test("should show past bookings", async ({ page }) => {
+  await page.goto(UI_URL);
+
+  await page.getByRole("link", { name: "History" }).click();
+
   await expect(page.getByText("Happy Resort")).toBeVisible();
 });
