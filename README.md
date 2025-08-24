@@ -65,11 +65,15 @@ VITE_STRIPE_PUB_KEY=your_stripe_publishable_key
 #### Backend
 
 MONGODB_CONNECTION_STRING=your_mongodb_connection_string
+
 JWT_SECRET_KEY=your_jwt_secret
+
 FRONTEND_URL=http://localhost:5173 # or your frontend URL/port
 
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+
 CLOUDINARY_API_KEY=your_cloudinary_api_key
+
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
 STRIPE_API_KEY=your_stripe_secret_key
