@@ -2,8 +2,10 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
 import * as apiClient from "../api-client";
 
+// Custom countdown hook
 const useCountdown = (targetDate: Date) => {
   const [timeLeft, setTimeLeft] = useState("");
+  const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -12,6 +14,7 @@ const useCountdown = (targetDate: Date) => {
 
       if (distance <= 0) {
         setTimeLeft("0d 0h 0m");
+        setIsExpired(true);
         return;
       }
 
@@ -29,7 +32,7 @@ const useCountdown = (targetDate: Date) => {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  return timeLeft;
+  return { timeLeft, isExpired };
 };
 
 const BookingCard = ({ booking, onCancel }: any) => {
@@ -37,12 +40,14 @@ const BookingCard = ({ booking, onCancel }: any) => {
   const checkOut = new Date(booking.checkOut);
   const isCompleted = checkOut < today;
 
+  // Set removal to 1 day after checkout
   const removalDate = new Date(checkOut);
   removalDate.setDate(removalDate.getDate() + 1);
 
-  const countdown = useCountdown(removalDate);
+  const { timeLeft, isExpired } = useCountdown(removalDate);
 
-  if (isCompleted && countdown === "0d 0h 0m") {
+  // If expired, hide booking
+  if (isCompleted && isExpired) {
     return null;
   }
 
@@ -70,7 +75,7 @@ const BookingCard = ({ booking, onCancel }: any) => {
       {isCompleted ? (
         <div className="mt-2 text-sm font-semibold text-gray-500">
           ✅ Completed <br />
-          <span className="italic text-xs">(Removed in {countdown})</span>
+          <span className="italic text-xs">(Removed in {timeLeft})</span>
         </div>
       ) : (
         <button
@@ -109,39 +114,51 @@ const MyBookings = () => {
   return (
     <div className="space-y-5">
       <h1 className="text-3xl font-bold">My Bookings</h1>
-      {hotels.map((hotel) => (
-        <div
-          key={hotel._id}
-          className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5"
-        >
-          <div className="lg:w-full lg:h-[250px]">
-            <img
-              src={hotel.imageUrls[0]}
-              className="w-full h-full object-cover object-center"
-            />
-          </div>
-          <div className="flex flex-col gap-4 overflow-y-auto max-h-[300px]">
-            <div className="text-2xl font-bold">
-              {hotel.name}
-              <div className="text-xs font-normal">
-                {hotel.city}, {hotel.country}
-              </div>
-            </div>
-            {hotel.bookings.map((booking) => (
-              <BookingCard
-                key={booking._id}
-                booking={booking}
-                onCancel={(bookingId: string) =>
-                  cancelBookingMutation.mutate({
-                    hotelId: hotel._id,
-                    bookingId,
-                  })
-                }
+      {hotels.map((hotel) => {
+        // Filter out expired bookings (checkout + 1 day in the past)
+        const activeBookings = hotel.bookings.filter((booking: any) => {
+          const checkOut = new Date(booking.checkOut);
+          const removalDate = new Date(checkOut);
+          removalDate.setDate(removalDate.getDate() + 1);
+          return removalDate > new Date(); // keep only future or not-yet-expired
+        });
+
+        if (activeBookings.length === 0) return null;
+
+        return (
+          <div
+            key={hotel._id}
+            className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5"
+          >
+            <div className="lg:w-full lg:h-[250px]">
+              <img
+                src={hotel.imageUrls[0]}
+                className="w-full h-full object-cover object-center"
               />
-            ))}
+            </div>
+            <div className="flex flex-col gap-4 overflow-y-auto max-h-[300px]">
+              <div className="text-2xl font-bold">
+                {hotel.name}
+                <div className="text-xs font-normal">
+                  {hotel.city}, {hotel.country}
+                </div>
+              </div>
+              {activeBookings.map((booking: any) => (
+                <BookingCard
+                  key={booking._id}
+                  booking={booking}
+                  onCancel={(bookingId: string) =>
+                    cancelBookingMutation.mutate({
+                      hotelId: hotel._id,
+                      bookingId,
+                    })
+                  }
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
