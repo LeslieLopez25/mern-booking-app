@@ -9,7 +9,8 @@ The backend is powered by Express and MongoDB, while the frontend uses React wit
 ### Key Features
 
 <p>
--  **Hotel Search**: Search for hotels by city and filter results.
+
+- **Hotel Search**: Search for hotels by city and filter results.
 
 - **Hotel Details**: View hotel descriptions, images, and availability details.
 
@@ -80,8 +81,6 @@ STRIPE_API_KEY=your_stripe_secret_key
 ---
 
 ### Screenshots
-
-(Add screenshots once deployed)
 
 <img src="./assets/home.png" width="400"/>
 <img src="./assets/edit-hotel.png" width="400"/>
